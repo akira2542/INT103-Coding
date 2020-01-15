@@ -31,9 +31,22 @@ public class Club {
         }
         this.count = 0;
     }
+
+    public String getFullName() {
+        return this.fullName;
+    }
+
+    public String getNickName() {
+        return this.nickName;
+    }
+
+    public status getClubstatus() {
+        return this.clubstatus;
+    }
+
     
     protected boolean subscribe(Student student) {
-        if (members.length <= this.count){
+        if (clubstatus == status.CLOSED || members.length <= this.count){
         return false;
         }
         if (student != null){
@@ -98,12 +111,14 @@ public class Club {
  
     
     
-    public String studentList() {
+    public String getStudentList() {
         StringBuilder s1 = new StringBuilder();
         for (Student member : members) {
-            s1.append(member.getStudentName()).append(" ");
+            if (member != null) {
+            s1.append(member.getStudentId()).append(" ").append(member.getStudentName()).append("\n");
+            }break;
         }
-        return "{List Members :"+s1+" }";
+        return "{List Members : "+s1+" }";
     }
         
         

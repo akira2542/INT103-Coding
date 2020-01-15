@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package test;
+import club.Controller;
 
 /**
  *
  * @author int105
  */
 public class ClubTest {
-    
+    public static void main(String[] args) {
+        Controller test = new Controller();
+    }
 }

@@ -3,18 +3,43 @@ import java.util.Scanner;
 
 public class Controller {
 
+    Student student;
+    Club testClub;
     Scanner scanner = new Scanner(System.in);
-
+    
     public Controller() {
-       // mainMenu();
+       this.student = new Student(6213077, "Ruri Kiku");
+       this.testClub = new Club("Swimming Club","Swim Team",10);
+       mainMenu();
+    }
+    public Controller(int num) {
+
+    } 
+    public static void main(String[] args) {
+        Controller debug = new Controller(0);
+        debug.listMember();
     }
 
     private void mainMenu() {
         
-        printMenu();
-        int input = scanner.nextInt();
-        optionController(input);
+        do {
+            deployTestObj();
+            printMenu();
+            int input = scanner.nextInt();
+            scanner.reset();
+            if (input == 6) break;
+            optionController(input);
+        } while (true);
     
+    }
+
+    private void deployTestObj() {
+        Student s1 = new Student(001, "test_student_1");
+        Student s2 = new Student(002, "test_student_2");
+        Student s3 = new Student(003, "test_student_3");
+        s1.subscribeToClub(this.testClub);
+        s2.subscribeToClub(this.testClub);
+        s3.subscribeToClub(this.testClub);
     }
 
     private void optionController(int input) {
@@ -22,8 +47,16 @@ public class Controller {
             case 1:
                 newClub();
                 break;
-        
+            case 2:
+                memberSub();
+            case 3:
+                editInfo();
+            case 4:
+                memberUnSub();
+            case 5:
+                listMember();
             default:
+                System.out.println("Something Wrong");
                 break;
         }
     }
@@ -39,17 +72,33 @@ public class Controller {
         System.out.print("Enter Your Menu [1‐6]: ");
     } 
 
-    public static void main(String[] args) {
-        Controller n = new Controller();
-    }
     
     private void newClub() {
+        Scanner temp = new Scanner(System.in);
         System.out.println("Enter Club's Full Name :");
-        String fullName = (scanner.nextLine() == null)? "none" : scanner.nextLine();
+        String fullName = temp.nextLine();
         System.out.println("Enter Club's Nick Name :");
-        String nickName = (scanner.nextLine() == null)? "none" : scanner.nextLine();
+        String nickName = temp.nextLine();
         System.out.println("Enter Club's size");
-        int size = (scanner.nextInt() <= 0)? 5 : scanner.nextInt();
+        int size =temp.nextInt();
+        this.testClub = new Club(fullName, nickName, size);
+    }
 
+    private void memberSub() {
+        this.student.subscribeToClub(this.testClub);
+        System.out.println("Student no."+this.student.getStudentId()+" has been registered to "+this.testClub.getFullName());
+    }
+    private void editInfo() {
+        System.out.println("Type your new name:");
+        String newName = scanner.nextLine();
+        this.student.setClubInfo(this.testClub,newName);
+    }
+    private void memberUnSub() {
+        this.student.unSubToClub(this.testClub);
+        System.out.println("Student no."+this.student.getStudentId()+" has resighned from "+this.testClub.getFullName());
+
+    }
+    private void listMember() {
+        System.out.println("this.testClub.getStudentList()");
     }
 }
