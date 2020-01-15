@@ -50,21 +50,41 @@ public class Club {
     protected boolean unsubscribe(Student student) {
             for (int i = 0; i < members.length; i++) {
                 if (members[i].equals(student)){
-                 members[i] = null;
                  if (i == --this.count) {
-                     this.count--;
-                     return true;
+                    members[i] = null; 
+                    this.count--;
+                    if (!isfull()) {
+                        this.clubstatus = status.OPEN;
+                    }
+                    return true;
                  }
                  if (i < --this.count) {
-                     members[i] = new Student(members[--this.count].getStudentId(),members[--this.count].getStudentName()); 
-                     this.count--;
-                     return true;
+                    members[i] = new Student(members[--this.count].getStudentId(),members[--this.count].getStudentName()); 
+                    members[--this.count] = null;
+                    this.count--;
+                    if (!isfull()) {
+                        this.clubstatus = status.OPEN;
+                    }
+                    return true;
                  }
+                return false;
                 }   
         }
         return false;    
      }
-   
+
+     private boolean isfull() {
+         return this.count >= members.length;
+     }
+    
+     protected boolean setInfo(Student student, String newName) {
+        Student tempmember = findStudent(student); 
+        if (tempmember != null) {
+                tempmember.setStudentName(newName);
+                return true;
+         }
+         return false;
+     }
     
     private Student findStudent(Student student){
         for (Student member : members) {
@@ -74,6 +94,7 @@ public class Club {
         }
         return null;
     }
+
  
     
     

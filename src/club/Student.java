@@ -5,6 +5,7 @@
  */
 package club;
 
+
 /**
  *
  * @author int105
@@ -17,6 +18,11 @@ public class Student {
         this.studentId = studentId;
         this.studentName = studentName;
     }
+    
+	protected void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
 
     public long getStudentId() {
         return studentId;
@@ -35,9 +41,19 @@ public class Student {
     }
     
     public boolean unSubToClub(Club club){
-        
+        if (club != null){
+            club.unsubscribe(this);
+            return true;
+        }
+        return false;
     }
-        
+     public boolean setClubInfo(Club club, String newName){
+        if (newName != null){ 
+        club.setInfo(this, newName);
+        return true;
+        }
+        return false;
+     }   
 
 
     @Override
