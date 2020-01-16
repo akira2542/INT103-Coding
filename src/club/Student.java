@@ -49,8 +49,7 @@ public class Student {
     }
      public boolean setClubInfo(Club club, String newName){
         if (newName != null){ 
-        club.setInfo(this, newName);
-        return true;
+            return club.setInfo(this, newName);
         }
         return false;
      }   
@@ -76,6 +75,21 @@ public class Student {
         final Student other = (Student) obj;
         return this.studentId == other.studentId;
     }
-
+    
+    //test
+//    public static void main(String[] args) {
+//        Student student = new Student(100,"Hello1");
+//        Student student2 = new Student(200,"Hello2");
+//        Student student3 = new Student(100,"Hello3");
+//        Club club = new Club("Hey","Yo",5);
+//        student.subscribeToClub(club);
+//        student2.subscribeToClub(club);
+//        student3.subscribeToClub(club);
+//        System.out.println(club.getStudentList());
+//        System.out.println(student.unSubToClub(club));
+//        System.out.println(club.getStudentList());
+//        student.setClubInfo(club, "newName");
+//        System.out.println(club.getStudentList());
+//    }
 
 }

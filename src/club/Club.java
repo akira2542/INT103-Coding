@@ -47,6 +47,7 @@ public class Club {
     
     protected boolean subscribe(Student student) {
         if (clubstatus == status.CLOSED || members.length <= this.count){
+            System.out.println("the club is full");
         return false;
         }
         if (student != null){
@@ -61,9 +62,10 @@ public class Club {
     }
     
     protected boolean unsubscribe(Student student) {
-            for (int i = 0; i < members.length; i++) {
+        int lastIndex = this.count-1;
+        for (int i = 0; i < members.length; i++) {
                 if (members[i].equals(student)){
-                 if (i == --this.count) {
+                 if (i == lastIndex) {
                     members[i] = null; 
                     this.count--;
                     if (!isfull()) {
@@ -71,16 +73,16 @@ public class Club {
                     }
                     return true;
                  }
-                 if (i < --this.count) {
-                    members[i] = new Student(members[--this.count].getStudentId(),members[--this.count].getStudentName()); 
-                    members[--this.count] = null;
+                 if (i < lastIndex) {
+                     System.out.println(this.count);
+                    members[i] = new Student(members[lastIndex].getStudentId(),members[lastIndex].getStudentName()); 
+                    members[lastIndex] = null;
                     this.count--;
                     if (!isfull()) {
                         this.clubstatus = status.OPEN;
                     }
                     return true;
                  }
-                return false;
                 }   
         }
         return false;    
@@ -101,8 +103,8 @@ public class Club {
     
     private Student findStudent(Student student){
         for (Student member : members) {
-            if (member.equals(student)){
-             return member;
+            if ( member != null && member.equals(student)){
+                return member;
             }
         }
         return null;
@@ -114,11 +116,13 @@ public class Club {
     public String getStudentList() {
         StringBuilder s1 = new StringBuilder();
         for (Student member : members) {
-            if (member != null) {
-            s1.append(member.getStudentId()).append(" ").append(member.getStudentName()).append("\n");
-            }break;
+            if (member != null) {  
+            s1.append(member.getStudentId()).append(" ").append(member.getStudentName()).append(" | ");
+            }else{
+            break;
+            }
         }
-        return "{List Members : "+s1+" }";
+        return "{ "+this.count+" Members : "+s1+" }";
     }
         
         

@@ -5,30 +5,33 @@ public class Controller {
 
     Student student;
     Club testClub;
-    Scanner scanner = new Scanner(System.in);
+   
     
     public Controller() {
        this.student = new Student(6213077, "Ruri Kiku");
        this.testClub = new Club("Swimming Club","Swim Team",10);
        mainMenu();
     }
-    public Controller(int num) {
-
-    } 
-    public static void main(String[] args) {
-        Controller debug = new Controller(0);
-        debug.listMember();
-    }
+//    public Controller(int num) {
+//
+//    } 
+//    public static void main(String[] args) {
+//        Controller debug = new Controller(0);
+//        debug.listMember();
+//    }
 
     private void mainMenu() {
-        
+        Scanner scanner = new Scanner(System.in);
+        Scanner con = new Scanner(System.in);
+        deployTestObj();
         do {
-            deployTestObj();
             printMenu();
             int input = scanner.nextInt();
             scanner.reset();
             if (input == 6) break;
             optionController(input);
+            System.out.println("Press Enter to Continue");
+            con.nextLine();
         } while (true);
     
     }
@@ -49,12 +52,16 @@ public class Controller {
                 break;
             case 2:
                 memberSub();
+                break;
             case 3:
                 editInfo();
+                break;
             case 4:
                 memberUnSub();
+                break;
             case 5:
                 listMember();
+                break;
             default:
                 System.out.println("Something Wrong");
                 break;
@@ -68,7 +75,7 @@ public class Controller {
         + "3. Edit Membership Information \n"
         + "4. Membership Unsubscribe \n"
         + "5. List Members \n"
-        + "6. Exit)");
+        + "6. (Exit)");
         System.out.print("Enter Your Menu [1‐6]: ");
     } 
 
@@ -89,9 +96,15 @@ public class Controller {
         System.out.println("Student no."+this.student.getStudentId()+" has been registered to "+this.testClub.getFullName());
     }
     private void editInfo() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Type your new name:");
         String newName = scanner.nextLine();
-        this.student.setClubInfo(this.testClub,newName);
+        if (this.student.setClubInfo(this.testClub,newName)) {
+            System.out.println("you have successfully changed your name");
+        }else{
+            System.out.println("No Such Student in this club");
+        }
+        ;
     }
     private void memberUnSub() {
         this.student.unSubToClub(this.testClub);
@@ -99,6 +112,6 @@ public class Controller {
 
     }
     private void listMember() {
-        System.out.println("this.testClub.getStudentList()");
+        System.out.println(this.testClub.getStudentList());
     }
 }
