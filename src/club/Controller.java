@@ -8,7 +8,7 @@ public class Controller {
    
     
     public Controller() {
-       this.student = new Student(6213077, "Ruri Kiku");
+       this.student = new Student(6213077, "Ruri Kiku","IT");
        this.testClub = new Club("Swimming Club","Swim Team",10);
        mainMenu();
     }
@@ -33,13 +33,14 @@ public class Controller {
             System.out.println("Press Enter to Continue");
             con.nextLine();
         } while (true);
-    
+        con.close();
+        scanner.close();
     }
 
     private void deployTestObj() {
-        Student s1 = new Student(001, "test_student_1");
-        Student s2 = new Student(002, "test_student_2");
-        Student s3 = new Student(003, "test_student_3");
+        Student s1 = new Student(001, "test_student_1","IT");
+        Student s2 = new Student(002, "test_student_2","IT");
+        Student s3 = new Student(003, "test_student_3","IT");
         s1.subscribeToClub(this.testClub);
         s2.subscribeToClub(this.testClub);
         s3.subscribeToClub(this.testClub);
@@ -89,6 +90,7 @@ public class Controller {
         System.out.println("Enter Club's size");
         int size =temp.nextInt();
         this.testClub = new Club(fullName, nickName, size);
+        temp.close();
     }
 
     private void memberSub() {
@@ -99,17 +101,22 @@ public class Controller {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type your new name:");
         String newName = scanner.nextLine();
-        if (this.student.setClubInfo(this.testClub,newName)) {
-            System.out.println("you have successfully changed your name");
+        System.out.println("Type your new department:");
+        // String newDepartment = scanner.nextLine();
+        String newDepartment = scanner.nextLine();
+        if (this.student.setClubInfo(this.testClub,newName,newDepartment)) {
+            System.out.println("you have successfully changed your name and department");
         }else{
             System.out.println("No Such Student in this club");
         }
         ;
     }
     private void memberUnSub() {
-        this.student.unSubToClub(this.testClub);
+        if (this.student.unSubToClub(this.testClub)) {
         System.out.println("Student no."+this.student.getStudentId()+" has resighned from "+this.testClub.getFullName());
-
+        }else{
+            System.out.println("No Such Student in this club");
+        }
     }
     private void listMember() {
         System.out.println(this.testClub.getStudentList());

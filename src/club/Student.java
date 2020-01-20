@@ -13,16 +13,21 @@ package club;
 public class Student {
         private long studentId;
         private String studentName;
+        private String department;
 
-    public Student(long studentId, String studentName) {
+    public Student(long studentId, String studentName, String department) {
         this.studentId = studentId;
         this.studentName = studentName;
+        this.department = department;
     }
     
 	protected void setStudentName(String studentName) {
         this.studentName = studentName;
     }
 
+    protected void setDepartment(String department) {
+        this.department = department;
+    }
 
     public long getStudentId() {
         return studentId;
@@ -30,6 +35,9 @@ public class Student {
 
     public String getStudentName() {
         return studentName;
+    }
+    public String getDepartment() {
+        return department;
     }
     
     public boolean subscribeToClub(Club club){
@@ -42,14 +50,13 @@ public class Student {
     
     public boolean unSubToClub(Club club){
         if (club != null){
-            club.unsubscribe(this);
-            return true;
+            return club.unsubscribe(this);
         }
         return false;
     }
-     public boolean setClubInfo(Club club, String newName){
-        if (newName != null){ 
-            return club.setInfo(this, newName);
+     public boolean setClubInfo(Club club, String newName,String newDepartment){
+        if (newName != null && newDepartment != null){ 
+            return club.setInfo(this, newName,newDepartment);
         }
         return false;
      }   
